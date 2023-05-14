@@ -14,12 +14,32 @@
  */
  export default class Character {
     constructor(level, type = 'generic') {
-      if (!new.target) throw "Character() must be called with new";
+      if (!new.target) {
+        throw new Error ("Character() must be called with new")
+      };
       this.level = level;
-      this.attack = 0;
-      this.defence = 0;
-      this.health = 50;
+      this.attack = null;
+      this.defence = null;
+      this.health = null;
       this.type = type;
-      // TODO: выбросите исключение, если кто-то использует "new Character()"
+      this.maxHealth = null;
+      this.moveRadius = null;
+      this.attackRadius = null;
+    }
+
+    levelUp() {
+      this.level += 1;
+      this.attack = Math.round(Math.max(this.attack, this.attack * (1.8 - this.health / 100)));
+  
+      if (this.health < 0) this.health = 0;
+      this.maxHealth = (this.health < 20) ? this.health + 80 : 100;
+    }
+  
+    restoreHealth() {
+      this.health = this.maxHealth;
+    }
+  
+    isLiving() {
+      return (this.health > 0);
     }
   }

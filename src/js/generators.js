@@ -14,13 +14,14 @@ import Vampire from '../characters/Vampire';
  * возвращает новый экземпляр класса персонажа
  *
  */
-const playerTypes = [Bowman, Swordsman, Magician];
-const compTypes = [Daemon, Undead, Vampire]
+//const playerTypes = [Bowman, Swordsman, Magician];
+//const compTypes = [Daemon, Undead, Vampire]
  export function* characterGenerator(allowedTypes, maxLevel) {
-  for (let i = 0; i < allowedTypes.length; i++) {
-    yield allowedTypes[i];
-  }
-    // TODO: write logic here
+    while (true) {
+      const RandomType = allowedTypes[Math.floor(Math.random() * allowedTypes.length)];
+      const randomLevel = Math.round(Math.random() * (maxLevel - 1) + 1);
+      yield new RandomType(randomLevel);
+    }
   }
   
   /**
@@ -31,6 +32,10 @@ const compTypes = [Daemon, Undead, Vampire]
    * @returns экземпляр Team, хранящий экземпляры персонажей. Количество персонажей в команде - characterCount
    * */
   export function generateTeam(allowedTypes, maxLevel, characterCount) {
-
-    // TODO: write logic here
+    const generator = characterGenerator(allowedTypes, maxLevel);
+    const team = [];
+    for (let i = 0; i < characterCount; i += 1) {
+      team.push(generator.next().value);
+    }
+    return team;
   }
