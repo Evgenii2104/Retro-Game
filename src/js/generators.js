@@ -1,9 +1,12 @@
-import Bowman from '../characters/Bowman';
+/*import Bowman from '../characters/Bowman';
 import Swordsman from '../characters/Swordsman';
 import Magician from '../characters/Magician';
 import Daemon from '../characters/Daemon';
 import Undead from '../characters/Undead';
 import Vampire from '../characters/Vampire';
+import Character from './Character';*/
+import PositionedCharacter from './PositionedCharacter';
+import { shuffle } from './utils';
 /**
  * Формирует экземпляр персонажа из массива allowedTypes со
  * случайным уровнем от 1 до maxLevel
@@ -38,4 +41,37 @@ import Vampire from '../characters/Vampire';
       team.push(generator.next().value);
     }
     return team;
+  }
+
+  export function generatePositions(boardSize, side, count) {
+    if (side !== 'left' && side !== 'right') {
+      throw new Error('Side must be <left> or <right>');
+    }
+  
+    const allowedPositions = [];
+    const n = boardSize ** 2;
+    let i = (side === 'left') ? 0 : boardSize - 2;
+  
+    for (i; i < n; i += boardSize) {
+      allowedPositions.push(i);
+      allowedPositions.push(i + 1);
+    }
+  
+    return shuffle(allowedPositions).slice(0, count);
+  }
+  
+  export function generatePositionedCharacters(team1, team2, boardSize) {
+    const positions1 = generatePositions(boardSize, 'left', team1.charactersCount);
+    const positionedCharacters1 = team1.characters.map((character, i) => {
+      const result = new PositionedCharacter(character, positions1[i], team1.player);
+      return result;
+    });
+  
+    const positions2 = generatePositions(boardSize, 'right', team2.charactersCount);
+    const positionedCharacters2 = team2.characters.map((character, i) => {
+      const result = new PositionedCharacter(character, positions2[i], team2.player);
+      return result;
+    });
+  
+    return positionedCharacters1.concat(positionedCharacters2);
   }

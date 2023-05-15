@@ -1,6 +1,20 @@
-//import GamePlay from "./GamePlay";
 import themes from "./themes";
-//const gamePlay = new GamePlay()
+import Character from './Character';
+import Bowman from '../characters/Bowman';
+import Swordsman from '../characters/Swordsman';
+import Magician from '../characters/Magician';
+import Daemon from '../characters/Daemon';
+import Undead from '../characters/Undead';
+import Vampire from '../characters/Vampire';
+
+import GamePlay from './GamePlay';
+import GameState from './GameState';
+import { User, Computer } from './Team';
+import { generateCharacters, generatePositionedCharacters, characterGenerator } from './generators';
+//import { calcActionPositions, randomItem } from './utils';
+//import messages from './messages';
+//import CharacterTypes from './character-types';
+
 
 export default class GameController {
     constructor(gamePlay, stateService) {
