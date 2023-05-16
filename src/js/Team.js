@@ -26,7 +26,7 @@ import Vampire from '../characters/Vampire';
     this.player = player;
     this.allowedTypes = allowedTypes;
     this.members = new Set();
-    this.point = 0
+    this.points = 0
     if (!new.target) {
       throw new Error ("Team() must be called with new")
     };
