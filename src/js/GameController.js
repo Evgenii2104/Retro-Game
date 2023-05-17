@@ -15,6 +15,8 @@ import { calcActionPositions, randomItem } from './utils';
 import PositionedCharacter from "./PositionedCharacter";
 import messages from './messages';
 import CharacterTypes from "./CharacterType";
+import emoji from "./emoji";
+import cursors from "./cursor";
 
 
 export default class GameController {
