@@ -427,7 +427,29 @@ export default class GameController {
         this.gameState.user.addCharacter(randomCharacter);
         return;
       }
+
+      this.gameState.user.characters.forEach((character) => {
+        character.levelUp();
+        character.restoreHealth();
+      });
   
+      if (this.gameState.round === 3) {
+        const randomCharacter = characterGenerator(this.gameState.user.allowedTypes, 1).next().value;
+        this.gameState.user.addCharacter(randomCharacter);
+        return;
+      }
+      
+      this.gameState.user.characters.forEach((character) => {
+        character.levelUp();
+        character.restoreHealth();
+      });
+
+      if (this.gameState.round === 4) {
+        const randomCharacter = characterGenerator(this.gameState.user.allowedTypes, 1).next().value;
+        this.gameState.user.addCharacter(randomCharacter);
+        return;
+      }
+      
       const maxLevel = this.gameState.round - 1;
       const randomCharacters = generateCharacters(this.gameState.user.allowedTypes, maxLevel, 2);
       this.gameState.user.addCharacters(randomCharacters);
