@@ -38,9 +38,11 @@ import emoji from "./emoji";
 
     levelUp() {
       this.level += 1;
-      this.attack = Math.round(Math.max(this.attack, this.attack * (1.8 - this.health / 100)));
+      this.attack = Math.round(Math.max(this.attack, this.attack * ((80 + this.health) / 100)));
   
-      if (this.health < 0) this.health = 0;
+      if (this.health < 0) {
+        this.health = 0
+      }
       this.maxHealth = (this.health < 20) ? this.health + 80 : 100;
     }
   
