@@ -1,22 +1,13 @@
 import themes from "./themes";
-import Character from './Character';
 import Bowman from '../characters/Bowman';
 import Swordsman from '../characters/Swordsman';
-import Magician from '../characters/Magician';
-import Daemon from '../characters/Daemon';
-import Undead from '../characters/Undead';
-import Vampire from '../characters/Vampire';
-
 import GamePlay from './GamePlay';
 import GameState from './GameState';
 import { User, Computer } from './Team';
-import { characterGenerator, generateTeam, generatePositions, generatePositionedCharacters } from './generators';
+import { characterGenerator, generateTeam, generatePositionedCharacters } from './generators';
 import { calcActionPositions, randomItem } from './utils';
-import PositionedCharacter from "./PositionedCharacter";
 import messages from './messages';
 import CharacterTypes from "./CharacterType";
-import emoji from "./emoji";
-import cursors from "./cursor";
 
 
 export default class GameController {
@@ -382,12 +373,12 @@ export default class GameController {
   
         if (this.gameState.user.points < this.gameState.computer.points) {
           gameWinner = this.gameState.computer;
-        }
-  
-        this.gameState.statistics.push({
+        } 
+        console.log(gameWinner)
+        this.gameState.statistics = {
           player: gameWinner.player,
           points: gameWinner.points,
-        });
+        };
         GamePlay.showMessage(`${messages.code104} ${gameWinner.player} (${gameWinner.points} points)`);
         this.gamePlay.drawUi(this.gameState.theme);
         this.boardUnlocked = false;
